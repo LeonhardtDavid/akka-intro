@@ -6,16 +6,18 @@ class Greeter(message: String, printerActor: ActorRef) extends Actor {
 
   import Greeter._
   import Printer._
+  import context._
 
-  var greeting = ""
+  override def receive: Receive = this.behavior("")
 
-  override def receive: Receive = {
+  private def behavior(greeting: String): Receive = {
     case WhoToGreet(who) =>
-      greeting = s"$message, $who"
+      become(behavior(s"$message, $who"))
 
     case Greet =>
       printerActor ! Greeting(greeting)
   }
+
 }
 
 object Greeter {
@@ -47,23 +49,20 @@ object Printer {
 
 }
 
-object AkkaIntro_10 extends App {
+object AkkaIntro_7 extends App {
 
   import Greeter._
 
   // Create the 'helloAkka' actor system
-  val system: ActorSystem = ActorSystem("AkkaIntro_10")
+  val system: ActorSystem = ActorSystem("AkkaIntro_7")
 
   // Create the printer actor
   val printer: ActorRef = system.actorOf(Printer.props, "printerActor")
 
   // Create the 'greeter' actors
-  val howdyGreeter: ActorRef =
-    system.actorOf(Greeter.props("Howdy", printer), "howdyGreeter")
-  val helloGreeter: ActorRef =
-    system.actorOf(Greeter.props("Hello", printer), "helloGreeter")
-  val goodDayGreeter: ActorRef =
-    system.actorOf(Greeter.props("Good day", printer), "goodDayGreeter")
+  val howdyGreeter: ActorRef = system.actorOf(Greeter.props("Howdy", printer), "howdyGreeter")
+  val helloGreeter: ActorRef = system.actorOf(Greeter.props("Hello", printer), "helloGreeter")
+  val goodDayGreeter: ActorRef = system.actorOf(Greeter.props("Good day", printer), "goodDayGreeter")
 
   howdyGreeter ! WhoToGreet("Akka")
   howdyGreeter ! Greet

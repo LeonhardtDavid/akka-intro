@@ -8,8 +8,8 @@ import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
 
 import scala.concurrent.duration._
 
-class AkkaIntro_10Spec
-  extends TestKit(ActorSystem("AkkaIntro_10Spec"))
+class AkkaIntro_7Spec
+  extends TestKit(ActorSystem("AkkaIntro_7Spec"))
     with Matchers
     with WordSpecLike
     with BeforeAndAfterAll {
@@ -22,10 +22,13 @@ class AkkaIntro_10Spec
     "pass on a greeting message when instructed to" in {
       val testProbe = TestProbe()
       val helloGreetingMessage = "hello"
+
       val helloGreeter = system.actorOf(Greeter.props(helloGreetingMessage, testProbe.ref))
+
       val greetPerson = "Akka"
       helloGreeter ! WhoToGreet(greetPerson)
       helloGreeter ! Greet
+
       testProbe.expectMsg(500.millis, Greeting(helloGreetingMessage + ", " + greetPerson))
     }
   }
