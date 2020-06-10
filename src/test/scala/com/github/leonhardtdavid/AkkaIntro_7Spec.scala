@@ -4,14 +4,16 @@ import akka.actor.ActorSystem
 import akka.testkit.{TestKit, TestProbe}
 import com.github.leonhardtdavid.Greeter._
 import com.github.leonhardtdavid.Printer._
-import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
+import org.scalatest.BeforeAndAfterAll
+import org.scalatest.matchers.must.Matchers
+import org.scalatest.wordspec.AnyWordSpecLike
 
 import scala.concurrent.duration._
 
 class AkkaIntro_7Spec
   extends TestKit(ActorSystem("AkkaIntro_7Spec"))
     with Matchers
-    with WordSpecLike
+    with AnyWordSpecLike
     with BeforeAndAfterAll {
 
   override def afterAll: Unit = {
