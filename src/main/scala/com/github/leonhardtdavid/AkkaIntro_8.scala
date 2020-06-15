@@ -34,11 +34,11 @@ class BarActor extends Actor with ActorLogging {
   }
 
   override def postRestart(reason: Throwable): Unit = {
-    log.error("FooActor restarted")
+    log.debug("FooActor restarted")
   }
 
   override def postStop(): Unit = {
-    log.error("FooActor stopped")
+    log.debug("FooActor stopped")
   }
 
 }
