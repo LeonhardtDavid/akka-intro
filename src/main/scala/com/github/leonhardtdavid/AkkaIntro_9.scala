@@ -5,12 +5,12 @@ import java.util.UUID
 import akka.actor._
 import akka.routing.{Broadcast, RoundRobinPool}
 
-class Routee extends Actor with ActorLogging {
+class Routee extends Actor {
 
   private val uuid = UUID.randomUUID().toString
 
   override def receive: Receive = {
-    case msg => log.debug(s"$uuid ==>> $msg")
+    case msg => println(s"$uuid ==>> $msg")
   }
 
 }

@@ -1,6 +1,6 @@
 package com.github.leonhardtdavid
 
-import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Props}
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
 
 class Greeter(message: String, printerActor: ActorRef) extends Actor {
 
@@ -30,13 +30,13 @@ object Greeter {
 
 }
 
-class Printer extends Actor with ActorLogging {
+class Printer extends Actor {
 
   import Printer._
 
   override def receive: Receive = {
     case Greeting(greeting) =>
-      log.info("Greeting received (from {}): {}", sender(), greeting)
+      println(s"Greeting received (from ${sender()}): $greeting")
   }
 
 }

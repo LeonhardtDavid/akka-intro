@@ -26,7 +26,7 @@ object FooActor {
   def props: Props = Props[FooActor]
 }
 
-class BarActor extends Actor with ActorLogging {
+class BarActor extends Actor {
 
   override def receive: Receive = {
     case "fail" => throw new NullPointerException
@@ -34,11 +34,11 @@ class BarActor extends Actor with ActorLogging {
   }
 
   override def postRestart(reason: Throwable): Unit = {
-    log.debug("FooActor restarted")
+    println("FooActor restarted")
   }
 
   override def postStop(): Unit = {
-    log.debug("FooActor stopped")
+    println("FooActor stopped")
   }
 
 }
