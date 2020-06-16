@@ -6,7 +6,7 @@ import akka.pattern.CircuitBreaker
 import scala.concurrent.Future
 import scala.concurrent.duration._
 
-class MaybeFailureActor extends Actor with ActorLogging {
+class MaybeFailureActor extends Actor {
 
   private val breaker = CircuitBreaker(
     scheduler = context.system.scheduler,
@@ -23,28 +23,28 @@ class MaybeFailureActor extends Actor with ActorLogging {
 
   override def receive: Receive = {
     case "OK" =>
-      log.debug("OK received")
+      println("OK received")
       breaker.succeed()
 
     case "FAIL" =>
-      log.error("FAIL received")
+      println("FAIL received")
       breaker.fail()
 
     case "OPEN" =>
-      log.error("Breaker has been opened")
+      println("Breaker has been opened")
 
     case "HALF" =>
-      log.error("Breaker partially opened")
+      println("Breaker partially opened")
 
     case "CLOSE" =>
-      log.error("Breaker has been closed")
+      println("Breaker has been closed")
 
     case "FUTURE_OK" =>
-      log.debug("FUTURE_OK received")
+      println("FUTURE_OK received")
       breaker.withCircuitBreaker(Future.successful(""))
 
     case "FUTURE_FAIL" =>
-      log.error("FUTURE_FAIL received")
+      println("FUTURE_FAIL received")
       breaker.withCircuitBreaker(Future.failed(new RuntimeException))
   }
 
