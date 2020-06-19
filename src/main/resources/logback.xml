@@ -2,7 +2,9 @@
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%date - [%level] - %logger{15} - %message%n%xException{100}</pattern>
+<!--            <pattern>%date - [%level] - %logger{15} - %message%n%xException{100}</pattern>-->
+            <pattern>%date - [%level] - %marker - %logger{15} - %message%n%xException{100}</pattern>
+<!--            <pattern>%date - [%level] - %mdc - %logger{15} - %message%n%xException{100}</pattern>-->
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>TRACE</level>
